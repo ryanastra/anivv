@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Spesial Kita ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* --- CSS DARI LANDING PAGE UNTUK KONSISTENSI --- */
+        body {
+            background-color: #fff0f5; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #720026; 
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            flex-grow: 1;
+            width: 95%;
+            max-width: 450px; 
+            /* Padding bawah 120px agar tidak tertutup navbar */
+            padding: 30px 20px 120px 20px; 
+        }
+        
+        /* Font Judul (H1) */
+        h1 {
+            font-family: 'Dancing Script', cursive; 
+            color: #e91e63; 
+            font-size: 3.5em; 
+            margin-bottom: 5px;
+            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5); 
+        }
+        
+        /* Subjudul (P) - Dibuat miring */
+        p {
+            font-size: 1.1em;
+            margin-top: 0;
+            margin-bottom: 35px;
+            color: #a0522d; 
+            font-style: italic; 
+        }
+        
+        /* --- Styling Khusus Game --- */
+        #quiz-area {
+            background-color: rgba(255, 255, 255, 0.9);
+            border: 2px solid #ffc0cb; 
+            border-radius: 15px;
+            padding: 25px;
+            text-align: left;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        #question {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #d81b60; 
+            margin-bottom: 20px;
+        }
+
+        .answer-btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 10px;
+            background-color: #ffb6c1; 
+            color: #720026;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            text-align: left;
+        }
+
+        .answer-btn:hover {
+            background-color: #ff80ab;
+            color: white;
+        }
+
+        #result-area {
+            text-align: center;
+            padding: 30px 0;
+            min-height: 150px;
+        }
+
+        #score-display {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #e91e63;
+        }
+        
+        /* Styling untuk Tombol Utama (Tambahan dari index.html) */
+        .main-button {
+            display: inline-block;
+            background-color: #ff69b4; 
+            color: white;
+            text-decoration: none;
+            padding: 18px 35px;
+            border-radius: 30px; 
+            font-size: 1.3em;
+            font-weight: bold;
+            box-shadow: 0 8px 15px rgba(255, 105, 180, 0.4); 
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 20px; 
+        }
+
+        /* --- Navigasi Bawah --- */
+        .navbar {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: #d81b60; 
+            box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.2);
+            display: flex;
+            justify-content: space-around;
+            padding: 6px 0; 
+            z-index: 100;
+        }
+        .nav-item {
+            color: white;
+            text-decoration: none;
+            text-align: center;
+            padding: 5px;
+            font-size: 0.8em; 
+            opacity: 0.8;
+            transition: opacity 0.2s;
+        }
+        .nav-item.active {
+            opacity: 1;
+            font-weight: bold;
+            color: #fff0f5; 
+        }
+        .nav-icon {
+            font-size: 1.6em; 
+            display: block;
+            margin-bottom: 3px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>STOPP ADA UJIAN INGATAN!</h1>
+        <p>"JAWABANYA HARUS BENER SEMUAAAA"</p>
+
+        <div id="quiz-area">
+            <div id="question">Pertanyaan akan muncul di sini...</div>
+            <div id="answers">
+                </div>
+        </div>
+
+        <div id="result-area">
+            </div>
+    </div>
+
+    <div class="navbar">
+        <a href="index.html" class="nav-item">
+            <span class="nav-icon">🏡</span>
+            Home
+        </a>
+        <a href="message.html" class="nav-item">
+            <span class="nav-icon">💌</span>
+            Pesan
+        </a>
+        <a href="game.html" class="nav-item active">
+            <span class="nav-icon">🕹️</span>
+            Play
+        </a>
+         <a href="gallery.html" class="nav-item">
+            <span class="nav-icon">🖼️</span>
+            Album
+        </a>
+    </div>
+
+    <script>
+        // Data Kuis Anda
+        const quizData = [
+            {
+                question: "Di kota mana kita ketemu pertama kali",
+                answers: ["Denpasar", "Bandung", "Surabaya", "Malang"],
+                correct: "Denpasar" 
+            },
+            {
+                question: "Tempat pertama kali kita ketemu",
+                answers: ["Level 21", "Gramedia", "SDN 7 Sesetan", "Bumi"],
+                correct: "SDN 7 Sesetan" 
+            },
+            {
+                question: "Warna favorit akuu",
+                answers: ["Pink", "Biru", "Hijau", "Hitamm"],
+                correct: "Pink" 
+            },
+            {
+                question: "Siapa nama orang tersayang kamuu?",
+                answers: ["Ryan", "Ryan", "Ryan", "Ryan"],
+                correct: "Ryan" 
+            },
+            {
+                question: "Kapan tanggal jadian kitaa?",
+                answers: ["08/10/23", "08/10/98", "08/10/32", "08/10/25"],
+                correct: "08/10/23"
+            }
+        ];
+
+        let currentQuestionIndex = 0;
+        let score = 0;
+        const totalQuestions = quizData.length;
+
+        const quizArea = document.getElementById('quiz-area');
+        const questionElement = document.getElementById('question');
+        const answersElement = document.getElementById('answers');
+        const resultArea = document.getElementById('result-area');
+
+        // Fungsi untuk menampilkan pertanyaan
+        function loadQuestion() {
+            if (currentQuestionIndex < totalQuestions) {
+                const currentQuiz = quizData[currentQuestionIndex];
+                questionElement.textContent = `Pertanyaan ${currentQuestionIndex + 1}: ${currentQuiz.question}`;
+                answersElement.innerHTML = ''; 
+
+                currentQuiz.answers.forEach(answer => {
+                    const button = document.createElement('button');
+                    button.textContent = answer;
+                    button.classList.add('answer-btn');
+                    button.addEventListener('click', () => checkAnswer(answer, currentQuiz.correct));
+                    answersElement.appendChild(button);
+                });
+            } else {
+                showResults();
+            }
+        }
+
+        // Fungsi untuk mengecek jawaban
+        function checkAnswer(selectedAnswer, correctAnswer) {
+            if (selectedAnswer === correctAnswer) {
+                score++;
+            } 
+
+            currentQuestionIndex++;
+            loadQuestion();
+        }
+
+        // FUNGSI BARU: Untuk memulai Countdown Kejutan 3-2-1
+        function startSurpriseCountdown() {
+            // Sembunyikan tombol 'Kejutan Lagi'
+            document.getElementById('surprise-button').style.display = 'none';
+            
+            // Tampilkan teks countdown
+            const countdownText = document.getElementById('countdown-text');
+            countdownText.style.display = 'block';
+
+            let count = 3;
+            const surpriseLink = 'gallery.html'; // <<< HALAMAN KEJUTAN BERIKUTNYA >>>
+
+            // Fungsi untuk mengulang hitungan
+            const countdownInterval = setInterval(() => {
+                if (count > 0) {
+                    countdownText.textContent = count;
+                    count--;
+                } else {
+                    clearInterval(countdownInterval);
+                    countdownText.textContent = 'GASSSSS!';
+                    
+                    // Beri jeda singkat sebelum navigasi
+                    setTimeout(() => {
+                        window.location.href = surpriseLink;
+                    }, 500);
+                }
+            }, 1000); // Hitung setiap 1 detik
+        }
+
+        // FUNGSI HASIL AKHIR (Diperbarui dengan Syarat Kemenangan)
+        function showResults() {
+            quizArea.style.display = 'none'; // Sembunyikan area kuis
+
+            let message = '';
+            let emoji = '';
+            let buttonHtml = '';
+            const scoreMessageStyle = "style='font-size:1.5em; color:#d81b60; font-weight:bold; margin-bottom:10px;'";
+            const finalMessageStyle = "style='font-size:1.2em; color:#4a148c; font-weight:500;'";
+
+            // Logika pesan dan tombol berdasarkan skor
+            if (score === totalQuestions) {
+                // --- SKOR SEMPURNA (LULUS) ---
+                message = "YEAYYY KAMUUU INGETTT SEMUAAA! Kamu memangg BIDADARIKUU TERSAYANGGG! 🤍";
+                emoji = '🎉';
+                buttonHtml = `
+                    <a id="surprise-button" 
+                       class="main-button" 
+                       style="cursor:pointer; text-transform:uppercase;">
+                        EITTT ADA KEJUTAN LAGII!
+                    </a>
+                    <p id="countdown-text" style="font-size:3.0em; color:#e91e63; margin-top:30px; display:none;"></p>
+                `;
+            } else {
+                // --- GAGAL (KURANG DARI 100%) ---
+                message = `Skor ${score}/${totalQuestions}. APALAH MASAK MASIH ADA YANG SALAH SAD😔...`;
+                emoji = '😑';
+                
+                buttonHtml = `
+                    <p style="color:#e91e63; font-weight:bold; font-size:1.4em; margin-bottom:20px;">
+                        JAWABANNYA HARUS BENAL SEMUAA BIAR BISA LIAT KEJUTANNYA!
+                    </p>
+                    <a href="game.html" class="main-button" style="text-transform:uppercase; background-color:#ff80ab;">
+                        COBA LAGI BUB!
+                    </a>
+                `;
+            }
+
+            // Tampilkan Hasil Kuis
+            resultArea.innerHTML = `
+                <div id="score-display">${emoji}</div>
+                <p ${scoreMessageStyle}>Skor Akhir: ${score} dari ${totalQuestions}</p>
+                <p ${finalMessageStyle}>${message}</p>
+                
+                ${buttonHtml}
+            `;
+
+            // Hanya tambahkan event listener jika skor sempurna
+            if (score === totalQuestions) {
+                document.getElementById('surprise-button').addEventListener('click', startSurpriseCountdown);
+            }
+        }
+
+        // Mulai kuis saat halaman dimuat
+        loadQuestion();
+    </script>
+
+</body>
+</html>
