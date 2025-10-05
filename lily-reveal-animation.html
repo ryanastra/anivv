@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kejutan Bunga Lily 🌷</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            /* Latar belakang yang elegan, seperti nuansa Ghibli malam */
+            background-color: #1a1a2e; 
+            margin: 0;
+            padding: 0;
+            overflow: hidden; 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        #flower-container {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            animation: fadeIn 2s forwards; 
+        }
+
+        /* --- TEKS PINDAH KE ATAS --- */
+        #message {
+            font-family: 'Sacramento', cursive; 
+            color: #ff69b4; 
+            font-size: 2.5em;
+            text-shadow: 0 0 10px rgba(255, 105, 180, 0.8);
+            text-align: center;
+            padding: 0 20px;
+            margin-bottom: 40px; /* Jarak ke gambar bunga */
+        }
+        /* -------------------------- */
+
+        #flower-full {
+            /* Menggunakan gambar Lily Ghibli */
+            background-image: url('full-lily-ghibli.png'); 
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            
+            width: 90%; 
+            max-width: 400px;
+            height: 50vh; /* Dibuat lebih pendek agar teks di atas muat */
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="flower-container">
+        <div id="message">
+            "HADIAHHH UNTUK KAMU CANTIKKU💐"
+        </div>
+        <div id="flower-full"></div>
+    </div>
+
+    <script>
+        const REDIRECT_DELAY = 6000; // 6 detik
+
+        setTimeout(() => {
+            window.location.href = "game.html"; 
+        }, REDIRECT_DELAY);
+    </script>
+
+</body>
+</html>

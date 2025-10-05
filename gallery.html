@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Album Kenangan Kita ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* --- CSS DASAR MOBILE (Sama untuk semua file) --- */
+        body {
+            background-color: #fff0f5; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #720026; 
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            flex-grow: 1;
+            width: 95%;
+            max-width: 450px; 
+            /* Padding bawah agar tidak tertutup navbar */
+            padding: 30px 20px 120px 20px; 
+        }
+        
+        /* Font Judul (H1) */
+        h1 {
+            font-family: 'Scramento', cursive; 
+            color: #e91e63; 
+            font-size: 3.5em; 
+            margin-bottom: 5px;
+            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5); 
+        }
+        
+        /* Subjudul (P) - Dibuat miring */
+        p {
+            font-size: 1.1em;
+            margin-top: 0;
+            margin-bottom: 35px;
+            color: #a0522d; 
+            font-style: italic; 
+        }
+        
+        /* --- Styling Khusus Galeri (MOBILE GRID) --- */
+        .gallery-grid {
+            display: grid;
+            /* Tampilan 2 kolom yang optimal untuk HP */
+            grid-template-columns: 1fr 1fr; 
+            gap: 15px; 
+        }
+
+        .gallery-item {
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 150px; /* Tinggi tetap untuk tampilan grid yang rapi */
+            object-fit: cover; /* Memastikan foto mengisi kotak tanpa terdistorsi */
+            display: block;
+        }
+
+        .caption {
+            padding: 8px 5px;
+            font-size: 0.85em;
+            font-weight: 500;
+            color: #d81b60;
+            min-height: 30px; 
+        }
+        
+        /* --- Navigasi Bawah (Sticky Navbar) --- */
+        .navbar {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: #d81b60; 
+            box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.2);
+            display: flex;
+            justify-content: space-around;
+            padding: 6px 0; 
+            z-index: 100;
+        }
+        .nav-item {
+            color: white;
+            text-decoration: none;
+            text-align: center;
+            padding: 5px;
+            font-size: 0.8em; 
+            opacity: 0.8;
+            transition: opacity 0.2s;
+        }
+        .nav-item.active {
+            opacity: 1;
+            font-weight: bold;
+            color: #fff0f5; 
+        }
+        .nav-icon {
+            font-size: 1.6em; 
+            display: block;
+            margin-bottom: 3px;
+        }
+
+        .main-button {
+            /* UBAH INI: Pastikan properti yang mengatur pemusatan ada dan benar */
+            display: block; /* Tombol harus menjadi elemen blok agar margin auto berfungsi */
+            width: fit-content; /* Biarkan lebarnya sesuai konten teks */
+            margin-left: auto; /* Memusatkan elemen block */
+            margin-right: auto; /* Memusatkan elemen block */
+            
+            /* ... properti lain untuk desain tetap di sini ... */
+            background-color: #ff69b4; 
+            color: white;
+            padding: 18px 35px;
+            border-radius: 30px; 
+            font-size: 1.3em;
+            font-weight: bold;
+            box-shadow: 0 8px 15px rgba(255, 105, 180, 0.4); 
+            text-transform: uppercase;
+            text-align: center; /* Memusatkan teks di dalam tombol */
+        }
+     
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Album Kenangan Terindah</h1>
+        <p>"Setiap foto adalah cerita, dan kamu adalah penulisnya."</p>
+
+        <div class="gallery-grid">
+            
+            <div class="gallery-item">
+                <img src="kecil.jpg" alt="Foto Kenangan 1">
+                <div class="caption">Spill dikit masa kecill cewekku yang lucuuu inii</div>
+            </div>
+
+            <div class="gallery-item">
+                <img src="pntai.jpg" alt="Foto Kenangan 1">
+                <div class="caption">Momen di Petitenget</div>
+            </div>
+
+            <div class="gallery-item">
+                <img src="sc.jpg" alt="Foto Kenangan 1">
+                <div class="caption">Sedikit kenangan waktu Sekolah with u</div>
+            </div>
+            
+            
+            <div class="gallery-item">
+                <img src="4.jpg" alt="Foto Kenangan 6">
+                <div class="caption">Kawitan kodya W/my LUVV</div>
+            </div>
+
+        </div>
+        <a href="gallery2.html" class="main-button" style="margin-top: 50px;">
+            LANJUTT SAYANGKUUU!!😚
+        </a>
+        
+    </div>
+
+    <div class="navbar">
+        <a href="index.html" class="nav-item">
+            <span class="nav-icon">🏡</span>
+            Home
+        </a>
+        <a href="message.html" class="nav-item">
+            <span class="nav-icon">💌</span>
+            Pesan
+        </a>
+        <a href="game.html" class="nav-item">
+            <span class="nav-icon">🕹️</span>
+            Play
+        </a>
+         <a href="gallery.html" class="nav-item active">
+            <span class="nav-icon">🖼️</span>
+            Album
+        </a>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Puzzle Kita ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* --- CSS DASAR MOBILE (Konsisten) --- */
+        body {
+            background-color: #fff0f5; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #720026; 
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            flex-grow: 1;
+            width: 95%;
+            max-width: 450px; 
+            /* Padding bawah 120px untuk navbar */
+            padding: 30px 20px 120px 20px; 
+        }
+        h1 {
+            font-family: 'Scramento', cursive; 
+            color: #e91e63; 
+            font-size: 3.5em; 
+            margin-bottom: 5px;
+            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5); 
+        }
+        p {
+            font-size: 1.1em;
+            margin-top: 0;
+            margin-bottom: 35px;
+            color: #a0522d; 
+            font-style: italic; 
+        }
+        
+        /* --- Styling Khusus Puzzle --- */
+        #puzzle-container {
+            width: 330px; 
+            height: 330px;
+            margin: 0 auto 30px;
+            border: 5px solid #ff80ab;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); 
+            grid-template-rows: repeat(3, 1fr);
+        }
+
+        .puzzle-piece {
+            width: 100%;
+            height: 100%;
+            background-size: 300% 300%; 
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: transform 0.15s ease-out;
+            box-sizing: border-box;
+        }
+
+        .puzzle-piece:hover {
+            opacity: 0.8;
+        }
+
+        #message {
+            font-size: 1.5em;
+            color: #d81b60;
+            font-weight: bold;
+            margin-top: 20px;
+            min-height: 40px; /* Jaga ruang untuk tombol next */
+        }
+        
+        /* Styling untuk Tombol Utama (DIAMBIL DARI message.html) */
+        .main-button {
+            display: inline-block;
+            background-color: #ff69b4; 
+            color: white;
+            text-decoration: none;
+            padding: 18px 35px;
+            border-radius: 30px; 
+            font-size: 1.3em;
+            font-weight: bold;
+            box-shadow: 0 8px 15px rgba(255, 105, 180, 0.4); 
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 20px;
+        }
+
+        /* --- Navigasi Bawah (5 Menu Konsisten) --- */
+        .navbar {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: #d81b60; 
+            box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.2);
+            display: flex;
+            justify-content: space-around;
+            padding: 6px 0; 
+            z-index: 100;
+        }
+        .nav-item {
+            color: white;
+            text-decoration: none;
+            text-align: center;
+            padding: 5px;
+            font-size: 0.8em; 
+            opacity: 0.8;
+            transition: opacity 0.2s;
+        }
+        .nav-item.active {
+            opacity: 1;
+            font-weight: bold;
+            color: #fff0f5; 
+        }
+        .nav-icon {
+            font-size: 1.6em; 
+            display: block;
+            margin-bottom: 3px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Susun Puzzlenya Cayangg</h1>
+        <p>"Kamu Pasti Bisa Cemangattttt nyusunnya sayangg!!"</p>
+
+        <div id="puzzle-container">
+            </div>
+
+        <div id="message">
+            Klik dua keping biarr dia bertukar pocici!
+        </div>
+        
+    </div>
+
+    <div class="navbar">
+        <a href="index.html" class="nav-item"> 
+            <span class="nav-icon">🏡</span> Home 
+        </a>
+        <a href="message.html" class="nav-item"> 
+            <span class="nav-icon">💌</span> Pesan 
+        </a>
+        <a href="game.html" class="nav-item"> 
+            <span class="nav-icon">🕹️</span> Play 
+        </a>
+        <a href="gallery.html" class="nav-item active"> 
+            <span class="nav-icon">🖼️</span> Album 
+        </a>
+    </div>
+
+    <script>
+        const IMAGE_URL = '3.jpg'; // << GANTI NAMA FILE FOTO ANDA >>
+        const ROWS = 3;
+        const COLS = 3;
+        const TOTAL_PIECES = ROWS * COLS;
+
+        let pieces = [];
+        let selectedPiece = null;
+        let isSolving = false;
+
+        const container = document.getElementById('puzzle-container');
+        const messageDisplay = document.getElementById('message');
+
+        // 1. Inisialisasi Keping Puzzle
+        function createPieces() {
+            pieces = [];
+            for (let i = 0; i < TOTAL_PIECES; i++) {
+                const piece = document.createElement('div');
+                piece.classList.add('puzzle-piece');
+                piece.id = 'piece-' + i;
+                piece.dataset.correctIndex = i; // Simpan posisi yang benar
+                
+                // Hitung posisi background (CSS trick untuk memotong gambar)
+                const row = Math.floor(i / COLS);
+                const col = i % COLS;
+                
+                piece.style.backgroundImage = `url(${IMAGE_URL})`;
+                // Pengaturan posisi background agar sesuai dengan keping (3x3)
+                piece.style.backgroundPosition = `-${col * 110}px -${row * 110}px`; 
+                
+                piece.addEventListener('click', handlePieceClick);
+                pieces.push(piece);
+            }
+            // Mengacak array keping
+            shuffleArray(pieces);
+            pieces.forEach(piece => container.appendChild(piece));
+            isSolving = true;
+        }
+
+        // 2. Logika Mengacak Array (Fisher-Yates)
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]]; // Swap
+            }
+        }
+
+        // 3. Logika Klik dan Tukar Keping
+        function handlePieceClick(event) {
+            if (!isSolving) return;
+
+            const clickedPiece = event.target;
+
+            if (selectedPiece === clickedPiece) {
+                // Deselect jika diklik dua kali
+                selectedPiece.style.transform = 'scale(1)';
+                selectedPiece = null;
+                return;
+            }
+
+            if (!selectedPiece) {
+                // Pilih keping pertama
+                selectedPiece = clickedPiece;
+                selectedPiece.style.transform = 'scale(1.05)';
+                messageDisplay.textContent = 'Pilih keping kedua untuk ditukar!';
+            } else {
+                // Tukar keping kedua
+                swapPieces(selectedPiece, clickedPiece);
+                selectedPiece.style.transform = 'scale(1)'; 
+                selectedPiece = null;
+                messageDisplay.textContent = 'Klik dua keping untuk menukar posisinya!';
+
+                // Periksa kemenangan setelah tukar
+                setTimeout(checkWin, 200);
+            }
+        }
+
+        // 4. Fungsi Tukar Posisi di DOM
+        function swapPieces(piece1, piece2) {
+            const temp = document.createElement('div');
+            container.insertBefore(temp, piece1);
+            container.insertBefore(piece1, piece2);
+            container.insertBefore(piece2, temp);
+            container.removeChild(temp);
+        }
+
+        // 5. Periksa Kondisi Menang dan Tampilkan Tombol Next
+        function checkWin() {
+            const currentPieces = Array.from(container.children);
+            let isWin = true;
+
+            for (let i = 0; i < TOTAL_PIECES; i++) {
+                if (currentPieces[i].dataset.correctIndex != i) {
+                    isWin = false;
+                    break;
+                }
+            }
+
+            if (isWin) {
+                isSolving = false;
+                messageDisplay.innerHTML = `
+                    🎉 YEAAAYY KERENN SEKALIIII SAYANGGGKUUU 🎉
+                    <a href="flower-game.html" class="main-button">
+                        KLIKK INI BUBB!
+                    </a>
+                `;
+            }
+        }
+
+        // Mulai Puzzle
+        createPieces();
+    </script>
+
+</body>
+</html>
